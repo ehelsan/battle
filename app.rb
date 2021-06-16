@@ -5,13 +5,15 @@ class Battle < Sinatra::Base
     register Sinatra::Reloader
   end
 
-  get '/' do 
+  get '/' do
     "Testing infrastructure working!"
     erb(:name_form)
   end
 
   post '/names' do
-    p "Player One: " + params[:name_one] + " , Player Two: " + params[:name_two] 
+    @name_one = params[:name_one]
+    @name_two = params[:name_two]
+    erb :play_game
   end
 
   run! if app_file == $0
