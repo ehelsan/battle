@@ -5,14 +5,21 @@ class Battle < Sinatra::Base
     register Sinatra::Reloader
   end
 
+  enable :sessions
+
   get '/' do
-    "Testing infrastructure working!"
     erb(:name_form)
   end
 
   post '/names' do
-    @name_one = params[:name_one]
-    @name_two = params[:name_two]
+    session[:name_one] = params[:Name_one]
+    session[:name_two] = params[:Name_two]
+    redirect('/play')
+  end
+
+  get '/play' do
+    @name_one = session[:name_one]
+    @name_two = session[:name_two]
     erb :play_game
   end
 
